@@ -1,0 +1,55 @@
+--[[
+  Pixel Vision 8 - New Template Script
+  Copyright (C) 2017, Pixel Vision 8 (@pixelvision8)
+  Created by Jesse Freeman (@jessefreeman)
+
+  This project was designed to display some basic instructions when you create
+  a new game.  Simply delete the following code and implement your own Init(),
+  Update() and Draw() logic.
+
+  Learn more about making Pixel Vision 8 games at
+  https://www.pixelvision8.com/getting-started
+]]--
+
+--[[
+  This this is an empty game, we will the following text. We combined two sets
+  of fonts into the default.font.png. Use uppercase for larger characters and
+  lowercase for a smaller one.
+]]--
+local message = "EMPTY LUA GAME\n\n\nThis is an empty game template.\n\n\nVisit 'www.pixelvision8.com' to learn more about creating games from scratch."
+
+--[[
+  The Init() method is part of the game's lifecycle and called a game starts.
+  We are going to use this method to configure background color,
+  ScreenBufferChip and draw a text box.
+]]--
+
+local px = 72
+local py = 72
+local sprite = 1
+function Init()
+  BackgroundColor(5)
+  LoadTilemap('tilemap-0')
+end
+
+--[[
+  The Update() method is part of the game's life cycle. The engine calls
+  Update() on every frame before the Draw() method. It accepts one argument,
+  timeDelta, which is the difference in milliseconds since the last frame.
+]]--
+function Update(timeDelta)
+  -- TODO add your own update logic here
+end
+
+--[[
+  The Draw() method is part of the game's life cycle. It is called after
+  Update() and is where all of our draw calls should go. We'll be using this
+  to render sprites to the display.
+]]--
+function Draw()
+  -- We can use the RedrawDisplay() method to clear the screen and redraw
+  -- the tilemap in a single call.
+  RedrawDisplay()
+  DrawSprite(sprite, px, py, false, false, DrawMode.Sprite)
+  -- TODO add your own draw logic here.
+end
