@@ -18,17 +18,21 @@ namespace PixelVision8.Player
   public class CustomGameChip : GameChip
   {
     Character player;
+    Enemy enemy;
+    public bool debug = false;
     public override void Init()
     {
       BackgroundColor(5);
       LoadTilemap("tilemap-0");
-      player = new Player{w = 8, h = 8, sprite = 1, px = 74, py = 74};
+      player = new Character{w = 8, h = 8, sprite = 1, x = 71, y = 69, gameChip = this};
+      enemy = new Enemy{w = 8, h = 8, sprite = 18, x = 78, y = 69, gameChip = this};
     }
 
     public override void Draw()
     {
       RedrawDisplay();
-      player.DrawPlayer();
+      player.DrawGameObject();
+      enemy.DrawGameObject();
       
     }
 
@@ -36,33 +40,7 @@ namespace PixelVision8.Player
     {
       bool isPlaying = IsChannelPlaying(0);
       if (Key(Keys.P) && !isPlaying) PlaySound(4, 0);
-    }
-    
-    public void DrawGizmoHitBox(int px, int py, int w, int h)
-    {
-      int[] pixelData = new int[w*h];
-
-      for(int i = 0; i < w; i++) {
-        pixelData[i] = 15;
-      }
-
-      int j = 1;
-
-      for(int i = w; i < w * h - w; i++) {
-        if (i == w * j) {
-          j++;
-          pixelData[i] = 15;
-          pixelData[i-1] = 15;
-        } else {
-          pixelData[i] = -1;
-        }
-      }
-
-      for(int i = w*h - w; i < w*h; i++) {
-        pixelData[i] = 15;
-      }
-      
-      DrawPixels(pixelData, px, py, w, h, false, false, DrawMode.SpriteBelow);
+      player.UpdatePlayer(enemy);
     }
   }
 }
